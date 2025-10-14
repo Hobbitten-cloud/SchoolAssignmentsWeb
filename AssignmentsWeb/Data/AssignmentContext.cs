@@ -32,6 +32,13 @@ namespace AssignmentsWeb.Data
                     Title = "Opgave 3",
                     Subjects = Subjects.Technology,
                     Description = "Vi skal lære om binare tal"
+                },
+                new Assignment
+                {
+                    Id = 4,
+                    Title = "Opgave 4",
+                    Subjects = Subjects.Programming,
+                    Description = "Vi skal nu snakke sammen med APIer"
                 }
             );
 

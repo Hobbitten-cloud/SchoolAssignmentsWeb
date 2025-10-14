@@ -7,10 +7,16 @@ namespace AssignmentsWeb.Controllers
 {
     public class AssignmentController : Controller
     {
+        private readonly AssignmentRepository _assignmentRepository;
+        public AssignmentController(AssignmentRepository assignmentRepository)
+        {
+            _assignmentRepository = assignmentRepository;
+        }
+
         public IActionResult Index()
         {
-            var testRepo = new TestRepo();
-            return View(testRepo.GetAll());
+            var assignments = _assignmentRepository.GetAll();
+            return View(assignments);
         }
     }
 }
