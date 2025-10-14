@@ -63,8 +63,7 @@ namespace AssignmentsWeb.Controllers
             return View(assignment);
         }
 
-        // DELETE DOESNT WORK ATM??
-        [HttpPost]
+        [HttpGet]
         public IActionResult Delete(int id)
         {
             _assignmentRepository.Delete(id);
