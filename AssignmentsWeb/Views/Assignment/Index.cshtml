@@ -1,0 +1,29 @@
+﻿@model List<Assignment>
+
+@{
+	ViewData["Title"] = "Opgaver";
+}
+
+<h1>@ViewData["Title"]</h1>
+<br />
+<div>
+	@foreach (var assignment in Model)
+	{
+		<div class="card">
+			<div class="card-header">
+				<p>@assignment.Title</p>
+			</div>
+
+			<div class="card-body">
+				<p>@assignment.Subjects</p>
+				<p>@assignment.Description</p>
+			</div>
+
+			<div class="card-footer">
+				<a class="btn btn-primary">Edit</a>
+				<a class="btn btn-danger">Delete</a>
+			</div>
+		</div>
+		<br />
+	}
+</div>
