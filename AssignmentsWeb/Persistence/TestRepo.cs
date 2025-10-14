@@ -23,7 +23,7 @@ namespace AssignmentsWeb.Persistence
             },
             new Assignment
             {
-                Id = 2,
+                Id = 3,
                 Title = "Opgave 3",
                 Subjects = Subjects.Technology,
                 Description = "Vi skal lære om binare tal"
