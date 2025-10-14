@@ -1,3 +1,7 @@
+using AssignmentsWeb.Data;
+using AssignmentsWeb.Persistence;
+using Microsoft.EntityFrameworkCore;
+
 namespace AssignmentsWeb
 {
     public class Program
@@ -6,8 +10,18 @@ namespace AssignmentsWeb
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            //Connect context and connectionstring
+            builder.Services.AddDbContext<AssignmentContext>(options =>
+            {
+                options.UseSqlServer(builder.Configuration.GetConnectionString("MyDBConnection"));
+            });
+
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
+            builder.Services.AddScoped<AssignmentRepository>();
+            builder.Services.AddRazorPages();
+
 
             var app = builder.Build();
 
@@ -29,6 +43,8 @@ namespace AssignmentsWeb
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
+
+            app.MapRazorPages();
 
             app.Run();
         }
