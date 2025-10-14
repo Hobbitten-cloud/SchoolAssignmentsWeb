@@ -1,7 +1,7 @@
 ﻿using AssignmentsWeb.Models.Domain;
 using AssignmentsWeb.Models.Enums;
 
-namespace AssignmentsWeb.Persistence
+namespace AssignmentsWeb.Persistence.TestRepos
 {
     public class TestRepo
     {

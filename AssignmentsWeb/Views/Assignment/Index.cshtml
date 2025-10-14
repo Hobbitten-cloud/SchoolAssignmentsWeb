@@ -4,26 +4,44 @@
 	ViewData["Title"] = "Opgaver";
 }
 
-<h1>@ViewData["Title"]</h1>
-<br />
 <div>
-	@foreach (var assignment in Model)
-	{
-		<div class="card">
-			<div class="card-header">
-				<p>@assignment.Title</p>
-			</div>
-
-			<div class="card-body">
-				<p>@assignment.Subjects</p>
-				<p>@assignment.Description</p>
-			</div>
-
-			<div class="card-footer">
-				<a class="btn btn-primary">Edit</a>
-				<a class="btn btn-danger">Delete</a>
-			</div>
-		</div>
+	<div>
+		<h1>@ViewData["Title"]</h1>
 		<br />
-	}
+	</div>
+	<div>
+		<a asp-controller="Assignment" asp-action="Create" style="margin-bottom: 1%" class="btn btn-success">Create New Assignment</a>
+		<br />
+	</div>
+	<div>
+		@foreach (var assignment in Model)
+		{
+			<div class="card">
+				<div class="card-header">
+					<p>@assignment.Title</p>
+				</div>
+
+				<div class="card-body">
+					<p>@assignment.Subjects</p>
+					<p>@assignment.Description</p>
+				</div>
+
+				<div class="card-footer">
+					<a asp-controller="Assignment" asp-action="Edit" asp-route-id="@assignment.Id" class="btn btn-primary">Edit</a>
+					<a asp-controller="Assignment" asp-action="Delete" asp-route-id="@assignment.Id" onclick="confirmDelete('@assignment.Title')" class="btn btn-danger">Delete</a>
+				</div>
+			</div>
+			<br />
+		}
+	</div>
 </div>
+
+@section scripts
+{
+	<script>
+		function confirmDelete(Title)
+		{
+			return confirm("Er du sikker på at du vil slette denne opgave " + Title + "?");
+		}
+	</script>
+}
