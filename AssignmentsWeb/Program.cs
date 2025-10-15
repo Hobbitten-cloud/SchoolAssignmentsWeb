@@ -1,6 +1,10 @@
 using AssignmentsWeb.Data;
 using AssignmentsWeb.Persistence;
+using AssignmentsWeb.Services;
+using AssignmentsWeb.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json.Serialization;
+
 
 namespace AssignmentsWeb
 {
@@ -15,9 +19,20 @@ namespace AssignmentsWeb
             {
                 options.UseSqlServer(builder.Configuration.GetConnectionString("MyDBConnection"));
             });
+            builder.Services.AddControllers().AddJsonOptions(options =>
+            {
+                options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+            });
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
+            builder.Services.AddHttpClient("CatAPIClient", client =>
+            {
+                client.BaseAddress = new Uri("https://cataas.com/");
+            });
+
+            builder.Services.AddScoped<IHTTPService, HTTPService>();
 
             builder.Services.AddScoped<AssignmentRepository>();
             builder.Services.AddRazorPages();
