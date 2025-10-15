@@ -12,24 +12,45 @@
         <h6>Se en oversigt over pokemons</h6>
         @if (Model != null)
         {
-            foreach (var item in Model.Results)
-            {
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Navn</th>
-                            <th>Url</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>@item.Name</td>
-                            <td>@item.Url</td>
-                        </tr>
-                    </tbody>
-                </table>
-                <br />
-            }
+            <div class="d-flex align-items-center gap-2 mb-3">
+                <span>Total: @Model.Count</span>
+                @if (!string.IsNullOrWhiteSpace(Model.Previous))
+                {
+                    <a class="btn btn-primary" asp-controller="Pokemon" asp-action="Index" asp-route-url="@Model.Previous">Forrige side</a>
+                }
+                else
+                {
+                    <button class="btn btn-primary" disabled>Forrige side</button>
+                }
+                @if (!string.IsNullOrWhiteSpace(Model.Next))
+                {
+                    <a class="btn btn-primary" asp-controller="Pokemon" asp-action="Index" asp-route-url="@Model.Next">Næste side</a>
+                }
+                else
+                {
+                    <button class="btn btn-primary" disabled>Næste side</button>
+                }
+            </div>
+            <div class="row">
+                @foreach (var item in Model.Results)
+                {
+                    <div class="card" style="width: 24rem; margin: 10px">
+                        <div class="card-header">
+                            <p>@item.Name</p>
+                        </div>
+                        <div class="card-body">
+                            <figure>
+                                <blockquote class="blockquote">
+                                    <p>@item.Url</p>
+                                </blockquote>
+                                <figcaption class="blockquote-footer">
+                                    <p>Pokemons</p>
+                                </figcaption>
+                            </figure>
+                        </div>
+                    </div>
+                }
+            </div>
         }
     </div>
 </div>

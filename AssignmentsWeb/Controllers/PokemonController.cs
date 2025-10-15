@@ -12,9 +12,11 @@ namespace AssignmentsWeb.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string? url)
         {
-            var pokemons = await _httpService.GetPokemons();
+            // If url is not null, get the pokemons by url, otherwise get the pokemons
+            // This is used to navigate through the pokemon API and this is called a pagination with the Ternary Operator
+            var pokemons = string.IsNullOrWhiteSpace(url) ? await _httpService.GetPokemons() : await _httpService.GetPokemonsByUrl(url);
             return View(pokemons);
         }
     }

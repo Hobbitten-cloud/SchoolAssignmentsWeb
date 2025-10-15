@@ -10,20 +10,27 @@
 	</div>
 	<div>
 		<h6>Se en kat</h6>
-		<a asp-controller="Cat" asp-action="Index" class="btn btn-primary">Få en ny kat at se på</a>
+		<div class="d-flex gap-2 mb-3">
+			<a asp-controller="Cat" asp-action="Index" class="btn btn-primary">Vis en ny kat</a>
+			<a href="@Model.Url" class="btn btn-outline-secondary" target="_blank" rel="noopener">Åbn billede</a>
+		</div>
 		@if (Model != null)
 		{
-			<p>Id: @Model.Id</p>
-			<p>Oprettet: @Model.CreatedAt</p>
-@* 			<div class="row">
-				<p>Tags: </p>
-				@foreach (var tag in Model.Tags)
-				{
-					<p style="gap: 20px">@tag</p>
-				}
-			</div> *@
-			<img src="@Model.Url" alt="Billedet af katten findes ikke" />
-			<p>Billedeformat: @Model.Mimetype</p>
+			<div class="row justify-content-center mt-2">
+				<div class="col-md-8 col-lg-6">
+					<div class="card shadow-sm">
+						<img class="card-img-top img-fluid" src="@Model.Url" alt="Billedet af katten findes ikke" style="max-height: 60vh; object-fit: contain;" />
+						<div class="card-body">
+							<h5 class="card-title mb-2">Din tilfældige kat</h5>
+							<div class="d-flex flex-wrap gap-2">
+								<span class="badge bg-secondary">Id: @Model.Id</span>
+								<span class="badge bg-info text-dark">Format: @Model.Mimetype</span>
+							</div>
+							<p class="text-muted mt-2 mb-0">Oprettet: @Model.CreatedAt</p>
+						</div>
+					</div>
+				</div>
+			</div>
 		}
 	</div>
 </div>

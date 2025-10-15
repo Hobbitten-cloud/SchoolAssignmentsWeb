@@ -12,7 +12,7 @@ namespace AssignmentsWeb.Models.API.Pokemon
         public string Next { get; set; }
 
         [JsonPropertyName("previous")]
-        public object Previous { get; set; }
+        public string Previous { get; set; }
 
         [JsonPropertyName("results")]
         public List<Result> Results { get; set; }
