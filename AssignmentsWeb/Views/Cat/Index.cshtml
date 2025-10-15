@@ -10,9 +10,12 @@
     </div>
     <div>
         <h6>Se en kat</h6>
+        <a asp-controller="Cat" asp-action="Index" class="btn btn-primary">Få en ny kat at se på</a>
         @if (Model != null)
         {
-            <img src="@Model.Mimetype"/>
+			<p>Id: @Model.Id</p>
+			<img src="@Model.Url"/>
+			<p>Billedeformat: @Model.Mimetype</p>
         }
     </div>
 </div>
