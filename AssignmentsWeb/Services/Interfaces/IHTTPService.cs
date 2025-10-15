@@ -10,6 +10,7 @@ namespace AssignmentsWeb.Services.Interfaces
         Task<List<BreakingBad>?> GetAmountOfBreakingBadQuotes(string id);
         Task<List<BreakingBad>?> GetRandomBreakingBadQuote();
         Task<Pokemon?> GetPokemons();
+        Task<Pokemon?> GetPokemonsByUrl(string url);
         Task<Cat?> GetCat();
     }
 }

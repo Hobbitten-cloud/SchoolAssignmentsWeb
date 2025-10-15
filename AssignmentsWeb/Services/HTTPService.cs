@@ -50,6 +50,17 @@ namespace AssignmentsWeb.Services
             return await response.Content.ReadFromJsonAsync<Pokemon?>();
         }
 
+        public async Task<Pokemon?> GetPokemonsByUrl(string url)
+        {
+            var http = _httpClientFactory.CreateClient("PokemonClient");
+            var response = await http.GetAsync(url);
+            if (!response.IsSuccessStatusCode)
+            {
+                return null;
+            }
+            return await response.Content.ReadFromJsonAsync<Pokemon?>();
+        }
+
         public async Task<Cat?> GetCat()
         {
             var http = _httpClientFactory.CreateClient("CatClient");
