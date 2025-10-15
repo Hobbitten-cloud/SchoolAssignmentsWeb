@@ -1,0 +1,75 @@
+﻿@model Disney
+
+@{
+    ViewData["Title"] = "Pokemon - API";
+}
+
+<div>
+    <div>
+        <h1>@ViewData["Title"]</h1>
+    </div>
+    <div>
+        <h6>Se en oversigt over pokemons</h6>
+        @if (Model != null)
+        {
+            <div class="d-flex align-items-center gap-2 mb-3">
+                <span>Total: @Model.Info.Count</span>
+                @if (!string.IsNullOrWhiteSpace(Model.Info.PreviousPage))
+                {
+                    <a class="btn btn-primary" asp-controller="Disney" asp-action="Index" asp-route-url="@Model.Info.PreviousPage">Forrige side</a>
+                }
+                else
+                {
+                    <button class="btn btn-primary" disabled>Forrige side</button>
+                }
+                @if (!string.IsNullOrWhiteSpace(Model.Info.NextPage))
+                {
+                    <a class="btn btn-primary" asp-controller="Disney" asp-action="Index" asp-route-url="@Model.Info.NextPage">Næste side</a>
+                }
+                else
+                {
+                    <button class="btn btn-primary" disabled>Næste side</button>
+                }
+            </div>
+            <div class="row">
+                @foreach (var item in Model.Data)
+                {
+                    <div class="card" style="width: 24rem; margin: 10px">
+                        <div class="card-header">
+                            <p>@item.Name</p>
+                        </div>
+                        <div class="card-body">
+                            <figure>
+                                <blockquote class="blockquote">
+                                    <img class="card-img-top img-fluid" src="@item.ImageUrl" alt="Billedet findes ikke" style="max-height: 60vh; object-fit: contain;" />
+                                </blockquote>
+                                <figcaption class="blockquote-footer">
+                                    <p>Disney Characters</p>
+                                </figcaption>
+                            </figure>
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="d-flex align-items-center gap-2 mb-3">
+                <span>Total: @Model.Info.Count</span>
+                @if (!string.IsNullOrWhiteSpace(Model.Info.PreviousPage))
+                {
+                    <a class="btn btn-primary" asp-controller="Disney" asp-action="Index" asp-route-url="@Model.Info.PreviousPage">Forrige side</a>
+                }
+                else
+                {
+                    <button class="btn btn-primary" disabled>Forrige side</button>
+                }
+                @if (!string.IsNullOrWhiteSpace(Model.Info.NextPage))
+                {
+                    <a class="btn btn-primary" asp-controller="Disney" asp-action="Index" asp-route-url="@Model.Info.NextPage">Næste side</a>
+                }
+                else
+                {
+                    <button class="btn btn-primary" disabled>Næste side</button>
+                }
+            </div>
+        }
+    </div>
+</div>

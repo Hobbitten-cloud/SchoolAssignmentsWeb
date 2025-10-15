@@ -1,6 +1,7 @@
 ﻿using AssignmentsWeb.Models.API;
 using AssignmentsWeb.Models.API.BreakingBad;
 using AssignmentsWeb.Models.API.Cat;
+using AssignmentsWeb.Models.API.Disney;
 using AssignmentsWeb.Models.API.Pokemon;
 
 namespace AssignmentsWeb.Services.Interfaces
@@ -12,5 +13,7 @@ namespace AssignmentsWeb.Services.Interfaces
         Task<Pokemon?> GetPokemons();
         Task<Pokemon?> GetPokemonsByUrl(string url);
         Task<Cat?> GetCat();
+        Task<Disney?> GetDisneyCharacters();
+        Task<Disney?> GetDisneyCharactersByUrl(string url);
     }
 }

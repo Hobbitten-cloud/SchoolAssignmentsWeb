@@ -1,5 +1,6 @@
 ﻿using AssignmentsWeb.Models.API.BreakingBad;
 using AssignmentsWeb.Models.API.Cat;
+using AssignmentsWeb.Models.API.Disney;
 using AssignmentsWeb.Models.API.Pokemon;
 using AssignmentsWeb.Services.Interfaces;
 
@@ -59,6 +60,29 @@ namespace AssignmentsWeb.Services
                 return null;
             }
             return await response.Content.ReadFromJsonAsync<Pokemon?>();
+        }
+
+        public async Task<Disney?> GetDisneyCharacters()
+        {
+            var http = _httpClientFactory.CreateClient("DisneyClient");
+            var url = $"character";
+            var response = await http.GetAsync(url);
+            if (!response.IsSuccessStatusCode)
+            {
+                return null;
+            }
+            return await response.Content.ReadFromJsonAsync<Disney?>();
+        }
+
+        public async Task<Disney?> GetDisneyCharactersByUrl(string url)
+        {
+            var http = _httpClientFactory.CreateClient("DisneyClient");
+            var response = await http.GetAsync(url);
+            if (!response.IsSuccessStatusCode)
+            {
+                return null;
+            }
+            return await response.Content.ReadFromJsonAsync<Disney?>();
         }
 
         public async Task<Cat?> GetCat()

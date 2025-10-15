@@ -27,6 +27,8 @@ namespace AssignmentsWeb
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
+            // Region for dependency injections for api calls
+            #region
             // Endpoint for breaking bad quotes
             builder.Services.AddHttpClient("BreakingBadClient", client =>
             {
@@ -44,6 +46,14 @@ namespace AssignmentsWeb
             {
                 client.BaseAddress = new Uri("https://cataas.com/");
             });
+
+            // Endpoint for Disney API
+            builder.Services.AddHttpClient("DisneyClient", client =>
+            {
+                client.BaseAddress = new Uri("https://api.disneyapi.dev/");
+            });
+
+            #endregion
 
             builder.Services.AddScoped<IHTTPService, HTTPService>();
 
