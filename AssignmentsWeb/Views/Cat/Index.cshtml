@@ -1,0 +1,21 @@
+﻿@model Cat
+
+@{
+    ViewData["Title"] = "Cat - API";
+}
+
+<div>
+    <div>
+        <h1>@ViewData["Title"]</h1>
+    </div>
+    <div>
+        <h6>Se en kat</h6>
+        <a asp-controller="Cat" asp-action="Index" class="btn btn-primary">Få en ny kat at se på</a>
+        @if (Model != null)
+        {
+			<p>Id: @Model.Id</p>
+			<img src="@Model.Url" alt="Billedet af katten findes ikke"/>
+			<p>Billedeformat: @Model.Mimetype</p>
+        }
+    </div>
+</div>
