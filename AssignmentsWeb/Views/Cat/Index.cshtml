@@ -1,0 +1,18 @@
+﻿@model Cat
+
+@{
+    ViewData["Title"] = "Cat - API";
+}
+
+<div>
+    <div>
+        <h1>@ViewData["Title"]</h1>
+    </div>
+    <div>
+        <h6>Se en kat</h6>
+        @if (Model != null)
+        {
+            <img src="@Model.Mimetype"/>
+        }
+    </div>
+</div>

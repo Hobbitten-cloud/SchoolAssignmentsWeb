@@ -39,6 +39,12 @@ namespace AssignmentsWeb
                 client.BaseAddress = new Uri("https://pokeapi.co/api/v2/");
             });
 
+            // Endpoint for Cat API
+            builder.Services.AddHttpClient("CatClient", client =>
+            {
+                client.BaseAddress = new Uri("https://cataas.com/");
+            });
+
             builder.Services.AddScoped<IHTTPService, HTTPService>();
 
             builder.Services.AddScoped<AssignmentRepository>();

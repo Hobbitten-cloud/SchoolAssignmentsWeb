@@ -1,4 +1,5 @@
 ﻿using AssignmentsWeb.Models.API.BreakingBad;
+using AssignmentsWeb.Models.API.Cat;
 using AssignmentsWeb.Models.API.Pokemon;
 using AssignmentsWeb.Services.Interfaces;
 
@@ -47,6 +48,18 @@ namespace AssignmentsWeb.Services
                 return null;
             }
             return await response.Content.ReadFromJsonAsync<Pokemon?>();
+        }
+
+        public async Task<Cat?> GetCat()
+        {
+            var http = _httpClientFactory.CreateClient("CatClient");
+            var url = $"cat?position=center&json=true";
+            var response = await http.GetAsync(url);
+            if (!response.IsSuccessStatusCode)
+            {
+                return null;
+            }
+            return await response.Content.ReadFromJsonAsync<Cat?>();
         }
     }
 }
