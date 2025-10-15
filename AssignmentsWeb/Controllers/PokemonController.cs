@@ -12,13 +12,7 @@ namespace AssignmentsWeb.Controllers
         }
 
         [HttpGet]
-        public IActionResult Index()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Index(string amount)
+        public async Task<IActionResult> Index()
         {
             var pokemons = await _httpService.GetPokemons();
             return View(pokemons);
