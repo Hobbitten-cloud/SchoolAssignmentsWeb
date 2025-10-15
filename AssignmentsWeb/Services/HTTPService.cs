@@ -14,28 +14,28 @@ namespace AssignmentsWeb.Services
             _httpClientFactory = httpClientFactory;
         }
 
-        public async Task<Root?> GetRandomCat()
+        public async Task<List<Root>?> GetRandomBreakingBadQuote()
         {
-            var http = _httpClientFactory.CreateClient("CatAPIClient");
-            var url = $"cat";
+            var http = _httpClientFactory.CreateClient("BreakingBadClient");
+            var url = $"quotes";
             var response = await http.GetAsync(url);
             if (!response.IsSuccessStatusCode)
             {
                 return null;
             }
-            return await response.Content.ReadFromJsonAsync<Root?>();
+            return await response.Content.ReadFromJsonAsync<List<Root>?>();
         }
 
-        public async Task<Root?> GetCatById(int id)
+        public async Task<List<Root>?> GetAmountOfBreakingBadQuotes(string amount)
         {
-            var http = _httpClientFactory.CreateClient("CatAPIClient");
-            var url = $"api/cat/{id}";
+            var http = _httpClientFactory.CreateClient("BreakingBadClient");
+            var url = $"quotes/{amount}";
             var response = await http.GetAsync(url);
             if (!response.IsSuccessStatusCode)
             {
                 return null;
             }
-            return await response.Content.ReadFromJsonAsync<Root?>();
+            return await response.Content.ReadFromJsonAsync<List<Root>?>();
         }
     }
 }

@@ -27,9 +27,9 @@ namespace AssignmentsWeb
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
-            builder.Services.AddHttpClient("CatAPIClient", client =>
+            builder.Services.AddHttpClient("BreakingBadClient", client =>
             {
-                client.BaseAddress = new Uri("https://cataas.com/");
+                client.BaseAddress = new Uri("https://api.breakingbadquotes.xyz/v1/");
             });
 
             builder.Services.AddScoped<IHTTPService, HTTPService>();
