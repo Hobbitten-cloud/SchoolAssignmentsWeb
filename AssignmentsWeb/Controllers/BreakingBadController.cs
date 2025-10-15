@@ -4,10 +4,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AssignmentsWeb.Controllers
 {
-    public class APIController : Controller
+    public class BreakingBadController : Controller
     {
         private readonly IHTTPService _httpService;
-        public APIController(IHTTPService httpService)
+        public BreakingBadController(IHTTPService httpService)
         {
             _httpService = httpService;
         }
@@ -24,12 +24,5 @@ namespace AssignmentsWeb.Controllers
             var breakingBadQuotes = await _httpService.GetAmountOfBreakingBadQuotes(amount);
             return View(breakingBadQuotes);
         }
-
-        [HttpGet]
-        public IActionResult RandomQuote()
-        {
-            return View();
-        }
-
     }
 }

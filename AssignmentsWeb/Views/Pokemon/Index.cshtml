@@ -1,0 +1,39 @@
+﻿@model Pokemon
+
+@{
+	ViewData["Title"] = "Pokemon - API";
+}
+
+<div>
+	<div>
+		<h1>@ViewData["Title"]</h1>
+	</div>
+	<div>
+		<form method="post">
+			<h6>Se en oversigt over pokemons</h6>
+			<input type="text" name="amount" />
+			<button type="submit" class="btn-primary">Søg Quote</button>
+		</form>
+		@if (Model != null)
+		{
+			foreach (var item in Model.Results)
+			{
+				<table>
+					<thead>
+						<tr>
+							<th>Navn</th>
+							<th>Url</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>@item.Name</td>
+							<td>@item.Url</td>
+						</tr>
+					</tbody>
+				</table>
+				<br />
+			}
+		}
+	</div>
+</div>

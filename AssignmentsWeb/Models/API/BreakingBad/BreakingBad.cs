@@ -1,9 +1,10 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace AssignmentsWeb.Models.API
+namespace AssignmentsWeb.Models.API.BreakingBad
 {
-    public class Root
+    public class BreakingBad
     {
+        // Breaking bad quotes API
         [JsonPropertyName("quote")]
         public string Quote { get; set; }
 

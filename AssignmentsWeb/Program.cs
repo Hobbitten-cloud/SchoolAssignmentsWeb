@@ -27,9 +27,16 @@ namespace AssignmentsWeb
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
+            // Endpoint for breaking bad quotes
             builder.Services.AddHttpClient("BreakingBadClient", client =>
             {
                 client.BaseAddress = new Uri("https://api.breakingbadquotes.xyz/v1/");
+            });
+
+            // Endpoint for pokemon API
+            builder.Services.AddHttpClient("PokemonClient", client =>
+            {
+                client.BaseAddress = new Uri("https://pokeapi.co/api/v2/");
             });
 
             builder.Services.AddScoped<IHTTPService, HTTPService>();
