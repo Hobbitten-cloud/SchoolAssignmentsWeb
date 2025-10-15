@@ -15,13 +15,6 @@
 		{
 			<p>Id: @Model.Id</p>
 			<p>Oprettet: @Model.CreatedAt</p>
-@* 			<div class="row">
-				<p>Tags: </p>
-				@foreach (var tag in Model.Tags)
-				{
-					<p style="gap: 20px">@tag</p>
-				}
-			</div> *@
 			<img src="@Model.Url" alt="Billedet af katten findes ikke" />
 			<p>Billedeformat: @Model.Mimetype</p>
 		}

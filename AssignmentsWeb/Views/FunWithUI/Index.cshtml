@@ -1,0 +1,20 @@
+﻿@{
+	ViewData["Title"] = "Sjov med UI elementer";
+}
+
+<div>
+	<div>
+		<h1>@ViewData["Title"]</h1>
+		<br />
+		<h6>Vælg en af knapperne for at se forskelligt UI fra Bootstrap</h6>
+	</div>
+	<div>
+		<a class="btn btn-success" href="https://getbootstrap.com/docs/5.3/getting-started/introduction/">Find bootstrap dokumentation her!</a>
+	</div>
+	<br />
+	<div>
+		<a class="btn btn-primary" asp-controller="FunWithUI" asp-action="Spinner">Spinners</a>
+		<a class="btn btn-primary" asp-controller="FunWithUI" asp-action="CarouselSlide">Slideshow</a>
+		<a class="btn btn-primary" asp-controller="FunWithUI" asp-action="Buttons">Knapper</a>
+	</div>
+</div>

@@ -13,25 +13,23 @@
 		<a asp-controller="Assignment" asp-action="Create" style="margin-bottom: 1%" class="btn btn-success">Create New Assignment</a>
 		<br />
 	</div>
-	<div>
+	<div style="gap: 10px" class="row">
 		@foreach (var assignment in Model)
 		{
-			<div class="card">
+			<div class="card border-dark" style="width: 36rem; height: auto;">
 				<div class="card-header">
 					<p>@assignment.Title</p>
 				</div>
-
 				<div class="card-body">
 					<p>@assignment.Description</p>
 					<p>@assignment.Subjects</p>
 				</div>
-
-				<div class="card-footer">
+				<div class="card-footer text-center">
 					<a asp-controller="Assignment" asp-action="Edit" asp-route-id="@assignment.Id" class="btn btn-primary">Edit</a>
-					<a asp-controller="Assignment" asp-action="Delete" asp-route-id="@assignment.Id" onclick="confirmDelete('@assignment.Title')" class="btn btn-danger">Delete</a>
+					<a asp-controller="Assignment" asp-action="Delete" asp-route-id="@assignment.Id"
+					   onclick="confirmDelete('@assignment.Title')" class="btn btn-danger">Delete</a>
 				</div>
 			</div>
-			<br />
 		}
 	</div>
 </div>
