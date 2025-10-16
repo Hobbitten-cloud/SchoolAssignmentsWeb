@@ -6,8 +6,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AssignmentsWeb.Data
 {
-    public class AssignmentContext : IdentityDbContext
+    public class AssignmentContext : IdentityDbContext<ApplicationUser>
     {
+        public AssignmentContext(DbContextOptions contextOptions) : base(contextOptions)
+        {
+
+        }
+
         public DbSet<Assignment> Assignments { get; set; }
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
 
@@ -47,10 +52,6 @@ namespace AssignmentsWeb.Data
                 }
             );
 
-        }
-        public AssignmentContext(DbContextOptions contextOptions): base (contextOptions)
-        {
-            
         }
     }
 }
