@@ -1,0 +1,45 @@
+﻿@model List<Assignment>
+
+@{
+	ViewData["Title"] = "Opgaver";
+}
+
+<div>
+	<div>
+		<h1>@ViewData["Title"]</h1>
+		<br />
+	</div>
+	<div>
+		<a asp-controller="Assignment" asp-action="Create" style="margin-bottom: 1%" class="btn btn-success">Create New Assignment</a>
+		<br />
+	</div>
+	<div style="gap: 10px" class="row">
+		@foreach (var assignment in Model)
+		{
+			<div class="card border-dark" style="width: 36rem; height: auto;">
+				<div class="card-header">
+					<p>@assignment.Title</p>
+				</div>
+				<div class="card-body">
+					<p>@assignment.Description</p>
+					<p>@assignment.Subjects</p>
+				</div>
+				<div class="card-footer text-center">
+					<a asp-controller="Assignment" asp-action="Edit" asp-route-id="@assignment.Id" class="btn btn-primary">Edit</a>
+					<a asp-controller="Assignment" asp-action="Delete" asp-route-id="@assignment.Id"
+					   onclick="confirmDelete('@assignment.Title')" class="btn btn-danger">Delete</a>
+				</div>
+			</div>
+		}
+	</div>
+</div>
+
+@section scripts
+{
+	<script>
+		function confirmDelete(Title)
+		{
+			return confirm("Er du sikker på at du vil slette denne opgave " + Title + "?");
+		}
+	</script>
+}

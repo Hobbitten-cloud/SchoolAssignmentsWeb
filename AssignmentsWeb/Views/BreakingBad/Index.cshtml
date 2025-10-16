@@ -1,0 +1,42 @@
+﻿@model List<BreakingBad>
+
+@{
+	ViewData["Title"] = "Breaking Bad - API";
+}
+
+<div>
+	<div>
+		<h1>@ViewData["Title"]</h1>
+	</div>
+	<div>
+		<form method="post">
+			<h6>Skriv et tal for at se en kommentar fra Breaking Bad eller bare klik for at se et tilfældigt et</h6>
+			<input type="text" name="amount" />
+			<button type="submit" class="btn-primary">Søg Quote</button>
+		</form>
+		<br />
+		@if (Model != null)
+		{
+			<div class="row">
+				@foreach (var item in Model)
+				{
+					<div class="card" style="width: 24rem; margin: 10px">
+						<div class="card-header">
+							<p>@item.Author</p>
+						</div>
+						<div class="card-body">
+							<figure>
+								<blockquote class="blockquote">
+									<p>@item.Quote</p>
+								</blockquote>
+								<figcaption class="blockquote-footer">
+									<p>From Breaking Bad</p>
+								</figcaption>
+							</figure>
+						</div>
+					</div>
+				}
+			</div>
+		}
+	</div>
+</div>

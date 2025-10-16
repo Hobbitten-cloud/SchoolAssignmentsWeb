@@ -1,13 +1,76 @@
+using AssignmentsWeb.Data;
+using AssignmentsWeb.Models;
+using AssignmentsWeb.Persistence;
+using AssignmentsWeb.Services;
+using AssignmentsWeb.Services.Interfaces;
+using Microsoft.EntityFrameworkCore;
+using System.Text.Json.Serialization;
+using Microsoft.AspNetCore.Identity;
+
+
 namespace AssignmentsWeb
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            //Connect context and connectionstring
+            builder.Services.AddDbContext<AssignmentContext>(options =>
+            {
+                options.UseSqlServer(builder.Configuration.GetConnectionString("MyDBConnection"));
+            });
+
+            // To avoid circular references in JSON responses
+            builder.Services.AddControllers().AddJsonOptions(options =>
+            {
+                options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+            });
+
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
+            // Region for dependency injections for api calls
+            #region
+            // Endpoint for breaking bad quotes
+            builder.Services.AddHttpClient("BreakingBadClient", client =>
+            {
+                client.BaseAddress = new Uri("https://api.breakingbadquotes.xyz/v1/");
+            });
+
+            // Endpoint for pokemon API
+            builder.Services.AddHttpClient("PokemonClient", client =>
+            {
+                client.BaseAddress = new Uri("https://pokeapi.co/api/v2/");
+            });
+
+            // Endpoint for Cat API
+            builder.Services.AddHttpClient("CatClient", client =>
+            {
+                client.BaseAddress = new Uri("https://cataas.com/");
+            });
+
+            // Endpoint for Disney API
+            builder.Services.AddHttpClient("DisneyClient", client =>
+            {
+                client.BaseAddress = new Uri("https://api.disneyapi.dev/");
+            });
+
+            #endregion
+
+            // For Identity
+            // Add Identity and roles to the project
+            builder.Services.AddDefaultIdentity<IdentityUser>
+                (options => options.SignIn.RequireConfirmedAccount = false)
+                .AddRoles<IdentityRole>()
+                .AddEntityFrameworkStores<AssignmentContext>();
+
+            // Dependency injections for services and repositories
+            builder.Services.AddScoped<IHTTPService, HTTPService>();
+            builder.Services.AddScoped<AssignmentRepository>();
+            builder.Services.AddRazorPages();
+
 
             var app = builder.Build();
 
@@ -19,16 +82,21 @@ namespace AssignmentsWeb
                 app.UseHsts();
             }
 
+            // Middleware
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
             app.UseRouting();
 
+            // For Identity
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
+
+            app.MapRazorPages();
 
             app.Run();
         }
