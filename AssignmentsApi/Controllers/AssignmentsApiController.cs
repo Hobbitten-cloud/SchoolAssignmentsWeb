@@ -1,11 +1,13 @@
 ﻿using AssignmentsWeb.Data;
 using AssignmentsWeb.Models.Domain;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace AssignmentsApi.Controllers
 {
     [Route("api/[controller]/[action]")]
+    [ApiController]
     public class AssignmentsApiController : Controller
     {
         private readonly AssignmentContext _assignmentContext;
@@ -13,6 +15,7 @@ namespace AssignmentsApi.Controllers
         {
             _assignmentContext = assignmentContext;
         }
+
         [HttpPost]
         public async Task<Assignment> Create(Assignment assignment)
         {
@@ -21,6 +24,7 @@ namespace AssignmentsApi.Controllers
             await _assignmentContext.SaveChangesAsync();
             return assignment;
         }
+
         [HttpPost]
         public async Task<Assignment> Update(int id, Assignment assignment)
         {
@@ -34,18 +38,21 @@ namespace AssignmentsApi.Controllers
             }
             return assignment;
         }
+
         [HttpGet("/{id}")]
         public async Task<Assignment> Get(int id)
         {
             var assignment = await _assignmentContext.Assignments.FindAsync(id);
             return assignment;
         }
+
         [HttpGet]
         public async Task<List<Assignment>> GetAll()
         {
             return await _assignmentContext.Assignments.ToListAsync();
         }
-        [HttpDelete]
+
+        [HttpDelete, Authorize]
         public async Task<Assignment> Delete(int id)
         {
             var assignment = await _assignmentContext.Assignments.FindAsync(id);
