@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AssignmentsWeb.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     public class AssignmentController : Controller
     {
         private readonly AssignmentRepository _assignmentRepository;

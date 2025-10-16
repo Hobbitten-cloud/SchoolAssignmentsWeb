@@ -1,12 +1,13 @@
 ﻿using AssignmentsWeb.Models;
 using AssignmentsWeb.Models.Domain;
 using AssignmentsWeb.Models.Enums;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace AssignmentsWeb.Data
 {
-    public class AssignmentContext : IdentityDbContext<ApplicationUser>
+    public class AssignmentContext : IdentityDbContext<IdentityUser>
     {
         public AssignmentContext(DbContextOptions contextOptions) : base(contextOptions)
         {
@@ -14,7 +15,7 @@ namespace AssignmentsWeb.Data
         }
 
         public DbSet<Assignment> Assignments { get; set; }
-        public DbSet<ApplicationUser> ApplicationUsers { get; set; }
+        public DbSet<IdentityUser> ApplicationUsers { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

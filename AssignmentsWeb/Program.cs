@@ -12,7 +12,7 @@ namespace AssignmentsWeb
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
@@ -21,6 +21,8 @@ namespace AssignmentsWeb
             {
                 options.UseSqlServer(builder.Configuration.GetConnectionString("MyDBConnection"));
             });
+
+            // To avoid circular references in JSON responses
             builder.Services.AddControllers().AddJsonOptions(options =>
             {
                 options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
@@ -59,7 +61,7 @@ namespace AssignmentsWeb
 
             // For Identity
             // Add Identity and roles to the project
-            builder.Services.AddDefaultIdentity<ApplicationUser>
+            builder.Services.AddDefaultIdentity<IdentityUser>
                 (options => options.SignIn.RequireConfirmedAccount = false)
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<AssignmentContext>();
@@ -80,6 +82,7 @@ namespace AssignmentsWeb
                 app.UseHsts();
             }
 
+            // Middleware
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
