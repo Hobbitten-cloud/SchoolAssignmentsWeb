@@ -15,7 +15,7 @@ namespace AssignmentsWeb.Persistence
             _assignmentContext = context;
         }
 
-        public void create(Assignment assignment)
+        public void Create(Assignment assignment)
         {
             if (assignment == null) return;
 
