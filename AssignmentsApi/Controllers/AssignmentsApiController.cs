@@ -39,7 +39,7 @@ namespace AssignmentsApi.Controllers
             return assignment;
         }
 
-        [HttpGet("/{id}")]
+        [HttpGet]
         public async Task<Assignment> Get(int id)
         {
             var assignment = await _assignmentContext.Assignments.FindAsync(id);
