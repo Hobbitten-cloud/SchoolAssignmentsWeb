@@ -1,16 +1,18 @@
 using AssignmentsWeb.Data;
+using AssignmentsWeb.Models;
 using AssignmentsWeb.Persistence;
 using AssignmentsWeb.Services;
 using AssignmentsWeb.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
+using Microsoft.AspNetCore.Identity;
 
 
 namespace AssignmentsWeb
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
@@ -19,6 +21,8 @@ namespace AssignmentsWeb
             {
                 options.UseSqlServer(builder.Configuration.GetConnectionString("MyDBConnection"));
             });
+
+            // To avoid circular references in JSON responses
             builder.Services.AddControllers().AddJsonOptions(options =>
             {
                 options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
@@ -55,8 +59,15 @@ namespace AssignmentsWeb
 
             #endregion
 
-            builder.Services.AddScoped<IHTTPService, HTTPService>();
+            // For Identity
+            // Add Identity and roles to the project
+            builder.Services.AddDefaultIdentity<IdentityUser>
+                (options => options.SignIn.RequireConfirmedAccount = false)
+                .AddRoles<IdentityRole>()
+                .AddEntityFrameworkStores<AssignmentContext>();
 
+            // Dependency injections for services and repositories
+            builder.Services.AddScoped<IHTTPService, HTTPService>();
             builder.Services.AddScoped<AssignmentRepository>();
             builder.Services.AddRazorPages();
 
@@ -71,11 +82,14 @@ namespace AssignmentsWeb
                 app.UseHsts();
             }
 
+            // Middleware
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
             app.UseRouting();
 
+            // For Identity
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapControllerRoute(
