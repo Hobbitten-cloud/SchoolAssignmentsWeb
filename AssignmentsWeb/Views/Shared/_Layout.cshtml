@@ -48,6 +48,9 @@
 						<li class="nav-item">
 							<a class="nav-link text-dark" asp-controller="Home" asp-action="About">Hvad er dette?</a>
 						</li>
+						<li class="nav-item ms-auto">
+							@await Html.PartialAsync("_LoginPartial")
+						</li>
 					</ul>
 				</div>
 			</div>

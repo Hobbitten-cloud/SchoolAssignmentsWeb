@@ -1,10 +1,12 @@
 ﻿
 using AssignmentsWeb.Models.Domain;
 using AssignmentsWeb.Persistence;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AssignmentsWeb.Controllers
 {
+    [Authorize]
     public class AssignmentController : Controller
     {
         private readonly AssignmentRepository _assignmentRepository;

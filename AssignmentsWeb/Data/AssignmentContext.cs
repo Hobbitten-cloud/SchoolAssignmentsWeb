@@ -1,16 +1,21 @@
-﻿using AssignmentsWeb.Models.Domain;
+﻿using AssignmentsWeb.Models;
+using AssignmentsWeb.Models.Domain;
 using AssignmentsWeb.Models.Enums;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace AssignmentsWeb.Data
 {
-    public class AssignmentContext : DbContext
+    public class AssignmentContext : IdentityDbContext
     {
         public DbSet<Assignment> Assignments { get; set; }
+        public DbSet<ApplicationUser> ApplicationUsers { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            // Base data for Assignments
             modelBuilder.Entity<Assignment>().HasData(
                 new Assignment
                 {
