@@ -1,12 +1,10 @@
 ﻿
 using AssignmentsWeb.Models.Domain;
 using AssignmentsWeb.Persistence;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AssignmentsWeb.Controllers
 {
-    [Authorize(Roles = "Admin")]
     public class AssignmentController : Controller
     {
         private readonly AssignmentRepository _assignmentRepository;
@@ -56,7 +54,7 @@ namespace AssignmentsWeb.Controllers
         {
             if (ModelState.IsValid)
             {
-                _assignmentRepository.create(assignment);
+                _assignmentRepository.Create(assignment);
                 return RedirectToAction("Index");
             }
 
