@@ -6,9 +6,10 @@
 
 
 <form method="post" asp-controller="Assignment" asp-action="@action">
-	@if (action.ToLower() == "Edit")
+	@if (action.ToLower() == "edit")
 	{
 		<input type="hidden" asp-for="Id" />
+		<input type="hidden" asp-for="RowVersion" />
 	}
 
 	<div class="text-danger" asp-validation-summary="All"></div>
