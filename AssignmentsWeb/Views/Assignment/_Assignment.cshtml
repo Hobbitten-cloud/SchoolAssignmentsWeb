@@ -10,8 +10,6 @@
 	{
 		<input type="hidden" asp-for="Id" />
 		<input type="hidden" asp-for="RowVersion" />
-@* 		<input type="hidden" name="RowVersion" value="@Convert.ToBase64String(Model.RowVersion ?? new byte[0])" />
- *@
 	}
 
 	<div class="text-danger" asp-validation-summary="All"></div>
