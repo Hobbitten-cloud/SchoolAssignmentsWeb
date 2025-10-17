@@ -3,10 +3,11 @@ using AssignmentsWeb.Models.Domain;
 using AssignmentsWeb.Persistence;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace AssignmentsWeb.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    //[Authorize(Roles = "Admin")]
     public class AssignmentController : Controller
     {
         private readonly AssignmentRepository _assignmentRepository;
@@ -35,8 +36,17 @@ namespace AssignmentsWeb.Controllers
         {
             if (ModelState.IsValid)
             {
-                _assignmentRepository.Update(assignment.Id, assignment);
-                return RedirectToAction("Index");
+                try
+                {
+                    _assignmentRepository.Update(assignment.Id, assignment);
+                    return RedirectToAction("Index");
+                }
+                catch (DbUpdateConcurrencyException) 
+                {
+                    ModelState.AddModelError("RowVersion", "Disse ressourcer er optaget. FEJL");
+                    ViewBag.Action = "Edit";
+                    return View(assignment);
+                }
             }
 
             // If failed validation return to the same view

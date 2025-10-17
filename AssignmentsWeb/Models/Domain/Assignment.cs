@@ -12,5 +12,8 @@ namespace AssignmentsWeb.Models.Domain
         public string Description { get; set; }
         [Required]
         public Subjects? Subjects { get; set; }
+        [Timestamp]
+        public byte[] RowVersion { get; set; }
+
     }
 }
