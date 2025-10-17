@@ -46,7 +46,7 @@ namespace AssignmentsWeb.Controllers
                     // Concurrency conflict occurred
                     // Retrieve the current entity from the database
                     var databaseEntity = _assignmentRepository.Get(assignment.Id);
-                    ModelState.AddModelError("RowVersion", "Fejl - Du kan ikke ændre denne ressource");
+                    ModelState.AddModelError("RowVersion", "Denne opgave blev ændret af en anden bruger");
                     ViewBag.Action = "Edit";
                     return View(databaseEntity);
                 }
