@@ -7,6 +7,13 @@
 	<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
 	<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 	<link rel="stylesheet" href="~/AssignmentsWeb.styles.css" asp-append-version="true" />
+
+	<style>
+		body {
+			font-family: 'Arial', sans-serif;
+			background-color: #f0e6d6;
+		}
+	</style>
 </head>
 <body>
 	<header>
@@ -39,6 +46,20 @@
 								</li>
 								<li class="nav-item">
 									<a class="nav-link text-dark" asp-controller="Cat" asp-action="Index">Cat</a>
+								</li>
+							</ul>
+						</li>
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Classic Games</a>
+							<ul class="dropdown-menu">
+								<li class="nav-item">
+									<a class="nav-link text-dark" asp-controller="ClassicGame" asp-action="CookieClicker">Cookie Clicker</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link text-dark" asp-controller="ClassicGame" asp-action="Tetris">Tetris</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link text-dark" asp-controller="ClassicGame" asp-action="Snake">Snake</a>
 								</li>
 							</ul>
 						</li>
