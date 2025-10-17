@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AssignmentsWeb.Migrations
 {
     [DbContext(typeof(AssignmentContext))]
-    [Migration("20251016073634_NewInit")]
-    partial class NewInit
+    [Migration("20251017064018_Optimistic")]
+    partial class Optimistic
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -36,6 +36,12 @@ namespace AssignmentsWeb.Migrations
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<byte[]>("RowVersion")
+                        .IsConcurrencyToken()
+                        .IsRequired()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("rowversion");
 
                     b.Property<int>("Subjects")
                         .HasColumnType("int");
