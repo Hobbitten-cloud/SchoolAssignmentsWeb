@@ -18,6 +18,7 @@ namespace AssignmentsWeb.Models.Domain
         public Subjects? Subjects { get; set; }
 
         [Timestamp]
-        public byte[]? RowVersion { get; set; }
+        [ValidateNever]
+        public byte[] RowVersion { get; set; }
     }
 }
