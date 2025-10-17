@@ -25,16 +25,20 @@ namespace AssignmentsWeb.Persistence
 
         public void Update(int id, Assignment assignment)
         {
-            var assignmentToUpdate = Get(id);
-            if (assignmentToUpdate != null)
-            {
-                assignmentToUpdate.Title = assignment.Title;
-                assignmentToUpdate.Description = assignment.Description;
-                assignmentToUpdate.Subjects = assignment.Subjects;
-                _assignmentContext.SaveChanges();
-            }
-            // look at UpdateStudent from https://learn.microsoft.com/en-us/aspnet/mvc/overview/older-versions/getting-started-with-ef-5-using-mvc-4/implementing-the-repository-and-unit-of-work-patterns-in-an-asp-net-mvc-application
-            //_assignmentContext.Entry(assignment).State = EntityState.Modified;
+            // Attach the incoming entity with its original RowVersion so EF can
+            // perform optimistic concurrency checks.
+            // If the RowVersion in the database has changed since the entity was created
+            // (i.e., another user has updated it), EF will throw a DbUpdateConcurrencyException.
+            assignment.Id = id;
+            _assignmentContext.Attach(assignment);
+            _assignmentContext.Entry(assignment).Property(a => a.Title).IsModified = true;
+            _assignmentContext.Entry(assignment).Property(a => a.Description).IsModified = true;
+            _assignmentContext.Entry(assignment).Property(a => a.Subjects).IsModified = true;
+
+            // Set the original RowVersion value for concurrency check
+            // This ensures that EF compares the original RowVersion with the current one in the database
+            _assignmentContext.Entry(assignment).Property(a => a.RowVersion).OriginalValue = assignment.RowVersion;
+            _assignmentContext.SaveChanges();
         }
 
         public Assignment Get(int id)

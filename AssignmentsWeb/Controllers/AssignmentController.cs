@@ -41,11 +41,14 @@ namespace AssignmentsWeb.Controllers
                     _assignmentRepository.Update(assignment.Id, assignment);
                     return RedirectToAction("Index");
                 }
-                catch (DbUpdateConcurrencyException) 
+                catch (DbUpdateConcurrencyException)
                 {
-                    ModelState.AddModelError("RowVersion", "Disse ressourcer er optaget. FEJL");
+                    // Concurrency conflict occurred
+                    // Retrieve the current entity from the database
+                    var databaseEntity = _assignmentRepository.Get(assignment.Id);
+                    ModelState.AddModelError("RowVersion", "Fejl - Du kan ikke ændre denne ressource");
                     ViewBag.Action = "Edit";
-                    return View(assignment);
+                    return View(databaseEntity);
                 }
             }
 

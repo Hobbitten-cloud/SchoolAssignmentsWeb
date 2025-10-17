@@ -9,7 +9,7 @@
 	@if (action.ToLower() == "Edit")
 	{
 		<input type="hidden" asp-for="Id" />
-		<input type="hidden" asp-for="RowVersion"/>
+		<input type="hidden" asp-for="RowVersion" />
 	}
 
 	<div class="text-danger" asp-validation-summary="All"></div>
