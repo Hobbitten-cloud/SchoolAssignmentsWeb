@@ -39,6 +39,18 @@ namespace AssignmentsWeb.Persistence
             // This ensures that EF compares the original RowVersion with the current one in the database
             _assignmentContext.Entry(assignment).Property(a => a.RowVersion).OriginalValue = assignment.RowVersion;
             _assignmentContext.SaveChanges();
+
+            //// Alternative approach: Fetch the existing entity and update its properties
+            //var assignmentToUpdate = Get(id);
+            //if (assignmentToUpdate != null)
+            //{
+            //    assignmentToUpdate.Title = assignment.Title;
+            //    assignmentToUpdate.Description = assignment.Description;
+            //    assignmentToUpdate.Subjects = assignment.Subjects;
+            //    _assignmentContext.SaveChanges();
+            //}
+            //// look at UpdateStudent from https://learn.microsoft.com/en-us/aspnet/mvc/overview/older-versions/getting-started-with-ef-5-using-mvc-4/implementing-the-repository-and-unit-of-work-patterns-in-an-asp-net-mvc-application
+            ////_assignmentContext.Entry(assignment).State = EntityState.Modified;
         }
 
         public Assignment Get(int id)
