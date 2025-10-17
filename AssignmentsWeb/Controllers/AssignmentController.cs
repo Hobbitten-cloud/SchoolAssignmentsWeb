@@ -26,7 +26,7 @@ namespace AssignmentsWeb.Controllers
         [HttpGet]
         public IActionResult Edit(int id)
         {
-            ViewBag.Action = "Edit";
+            ViewBag.Action = "edit";
             var assignment = _assignmentRepository.Get(id);
             return View(assignment);
         }
@@ -43,17 +43,25 @@ namespace AssignmentsWeb.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    // Concurrency conflict occurred
-                    // Retrieve the current entity from the database
+                    // Concurrency conflict: refresh token, keep user's edits, ask to save again
+                    // Get the current database values
                     var databaseEntity = _assignmentRepository.Get(assignment.Id);
-                    ModelState.AddModelError("RowVersion", "Denne opgave blev ændret af en anden bruger");
-                    ViewBag.Action = "Edit";
-                    return View(databaseEntity);
+
+                    // Update the RowVersion to the current database value
+                    if (databaseEntity != null)
+                    {
+                        assignment.RowVersion = databaseEntity.RowVersion; // refresh token
+                    }
+
+                    // Add a model error to inform the user
+                    ModelState.AddModelError(string.Empty, "Denne opgave blev ændret af en anden bruger. Gennemse og gem igen.");
+                    ViewBag.Action = "edit";
+                    return View(assignment);
                 }
             }
 
             // If failed validation return to the same view
-            ViewBag.Action = "Edit";
+            ViewBag.Action = "edit";
             return View(assignment);
         }
 
